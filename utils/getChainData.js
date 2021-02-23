@@ -285,7 +285,7 @@ const scheduleUpdates = async (web3s) => {
     getData(web3s)
   })
   
- const getRangeSchedule = schedule.scheduleJob("* * 0 * * *", async () => { 
+ const getRangeSchedule = schedule.scheduleJob("* */15 * * * *", async () => { 
     console.log("schedule range 2")
     getDataRanges()
   })
