@@ -106,8 +106,8 @@ const getData = async (web3s) => {
   let wanCurrentTotalSupply = currentTotalSupply - ethCurrentTotalSupply
   let fnxCirculatingSupply = currentTotalSupply - opReserves - teamAndFounders - communityRewards - institutional // 10. FNX in Circulation	
   let effectiveCirculatingSupply = fnxCirculatingSupply - eth_cfnx - wan_cfnx - eth_fnxPoolTotal - wan_fnxPoolTotal // 12. FNX in Circulation (deducting the locked in FPO)	
-  let fnxCirculatingSupplyWan =  fnxCirculatingSupply - ethCurrentTotalSupply
-  let fnxCirculatingSupplyEth =  ethCurrentTotalSupply
+  let fnxCirculatingSupplyWan =  convertNum(fnxCirculatingSupply - ethCurrentTotalSupply, 18)
+  let fnxCirculatingSupplyEth =  convertNum(ethCurrentTotalSupply, 18)
   let wan_wanPoolTotalValue = Number(wan_wanPoolTotal)
   let wan_usdtPoolTotalValue = Number(wan_usdtPoolTotal)
   let eth_fnxPoolTotalValue = Number(eth_fnxPoolTotal)
