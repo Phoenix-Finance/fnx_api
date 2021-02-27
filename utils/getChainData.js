@@ -267,11 +267,10 @@ const getPriceData = async () => {
   chainData.fpoTvlWan.formattedValue = numeral(chainData.fpoTvlWan.value).format()
 }
 
-await getPriceData()
+  await getPriceData()
 
   try {
     console.log("get chaindata")
-
     const client = db.getClient()
     db.updateChainData(chainData, client) 
   }
@@ -283,7 +282,6 @@ await getPriceData()
 
 
 const scheduleUpdates = async (web3s) => {
-
  const getDataSchedule = schedule.scheduleJob("* */5 * * * *", async () => {   
    console.log("got data") 
     getData(web3s)
