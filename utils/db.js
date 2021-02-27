@@ -25,7 +25,7 @@ updateChainData = async (chainData, client) => {
         let newChainData = Object.assign({}, chainData)
         newChainData._id = ObjectId()
         await collection.insertOne(newChainData)
-        await collection.deleteMany( { timeStamp : {"$lt" : Date.now() - 60 * 60 * 24 * 1000 }}) 
+        await collection.deleteMany( { timeStamp : {"$lt" : Date.now() - 60 * 60 * 3 * 1000 }}) 
     } 
     catch(err) {
         console.log(err)
@@ -53,7 +53,7 @@ updateDataRanges = async (newRanges, client) => {
         updatedRanges._id = ObjectId()
         let insert_results = await collection.insertOne(updatedRanges)
         console.log(insert_results)
-        let delete_results = await collection.deleteMany( { timestamp : {"$lt" : Date.now() - 60 * 60 * 24 * 1000 }}) 
+        let delete_results = await collection.deleteMany( { timestamp : {"$lt" : Date.now() - 60 * 60 * 3 * 1000 }}) 
         console.log(delete_results)
     } 
     catch(err) {
