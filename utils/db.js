@@ -51,8 +51,10 @@ updateDataRanges = async (newRanges, client) => {
         const collection = database.collection('ranges');
         let updatedRanges = Object.assign({}, newRanges)
         updatedRanges._id = ObjectId()
-        await collection.insertOne(updatedRanges)
-        await collection.deleteMany( { timestamp : {"$lt" : Date.now() - 60 * 60 * 24 * 1000 }}) 
+        let insert_results = await collection.insertOne(updatedRanges)
+        console.log(insert_results)
+        let delete_results = await collection.deleteMany( { timestamp : {"$lt" : Date.now() - 60 * 60 * 24 * 1000 }}) 
+        console.log(delete_results)
     } 
     catch(err) {
         console.log(err)
