@@ -56,6 +56,7 @@ app.get("/wanCurrentTotalSupplyRaw", (req, res) => {
   res.json(req.chainData.wanCurrentTotalSupplyRaw)
 })
 
+
 app.get("/communityRewards", (req, res) => {
   res.json(req.chainData.communityRewards)
 })
@@ -132,6 +133,16 @@ app.get("/ranges", (req, res) => {
 
 app.get("/fnx-price", (req, res) => {
   res.json(req.chainData.fnxPrice)
+})
+
+
+app.get("/fnxCirculatingSupplyEth", (req, res) => {
+  res.json(req.chainData.fnxCirculatingSupplyEth)
+})
+
+
+app.get("/fnxCirculatingSupplyWan", (req, res) => {
+  res.json(req.chainData.fnxCirculatingSupplyWan)
 })
 
 module.exports = app

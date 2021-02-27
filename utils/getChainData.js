@@ -106,6 +106,8 @@ const getData = async (web3s) => {
   let wanCurrentTotalSupply = currentTotalSupply - ethCurrentTotalSupply
   let fnxCirculatingSupply = currentTotalSupply - opReserves - teamAndFounders - communityRewards - institutional // 10. FNX in Circulation	
   let effectiveCirculatingSupply = fnxCirculatingSupply - eth_cfnx - wan_cfnx - eth_fnxPoolTotal - wan_fnxPoolTotal // 12. FNX in Circulation (deducting the locked in FPO)	
+  let fnxCirculatingSupplyWan =  fnxCirculatingSupply - ethCurrentTotalSupply
+  let fnxCirculatingSupplyEth =  ethCurrentTotalSupply
   let wan_wanPoolTotalValue = Number(wan_wanPoolTotal)
   let wan_usdtPoolTotalValue = Number(wan_usdtPoolTotal)
   let eth_fnxPoolTotalValue = Number(eth_fnxPoolTotal)
@@ -221,6 +223,8 @@ const getData = async (web3s) => {
   chainData.ethCurrentTotalSupplyRawDecimals = convertNum(rawNumbers.ethCurrentTotalSupply, 18)
   chainData.wanCurrentTotalSupplyRawDecimals = convertNum(rawNumbers.wanCurrentTotalSupply, 18)
   chainData.currentTotalSupplyRaw = rawNumbers.currentTotalSupply
+  chainData.fnxCirculatingSupplyWan = fnxCirculatingSupplyWan
+  chainData.fnxCirculatingSupplyEth = fnxCirculatingSupplyEth
   chainData.fnxCirculatingSupplyRaw = rawNumbers.fnxCirculatingSupply
   chainData.fnxCirculatingSupplyRawDecimals = convertNum(fnxCirculatingSupply, 18)
   chainData.currentTotalSupplyRawDecimals = convertNum(currentTotalSupply, 18)
