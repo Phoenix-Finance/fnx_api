@@ -282,12 +282,12 @@ const getPriceData = async () => {
 
 
 const scheduleUpdates = async (web3s) => {
- const getDataSchedule = schedule.scheduleJob("* */5 * * * *", async () => {   
+ const getDataSchedule = schedule.scheduleJob("* */30 * * * *", async () => {   
    console.log("got data") 
     getData(web3s)
   })
   
- const getRangeSchedule = schedule.scheduleJob("* */15 * * * *", async () => { 
+ const getRangeSchedule = schedule.scheduleJob("* */30 * * * *", async () => { 
     console.log("schedule range 2")
     getDataRanges()
   })
