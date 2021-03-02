@@ -270,7 +270,7 @@ const getPriceData = async () => {
   await getPriceData()
 
   try {
-    console.log("get chaindata")
+    console.log("About to update chaindata")
     const client = db.getClient()
     db.updateChainData(chainData, client) 
   }
@@ -283,12 +283,12 @@ const getPriceData = async () => {
 
 const scheduleUpdates = async (web3s) => {
  const getDataSchedule = schedule.scheduleJob("* */30 * * * *", async () => {   
-   console.log("got data") 
+   console.log("About to run getData to get token data using Infura") 
     getData(web3s)
   })
   
  const getRangeSchedule = schedule.scheduleJob("* */30 * * * *", async () => { 
-    console.log("schedule range 2")
+    console.log("About to run getDataRanges to get token price data from CoinGecko")
     getDataRanges()
   })
 }
