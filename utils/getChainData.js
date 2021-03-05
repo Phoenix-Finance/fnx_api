@@ -282,12 +282,12 @@ const getPriceData = async () => {
 
 
 const scheduleUpdates = async (web3s) => {
- const getDataSchedule = schedule.scheduleJob("* * * * *", async () => {   
+ const getDataSchedule = schedule.scheduleJob("*/5 * * * *", async () => {   
    console.log("About to run getData to get token data using Infura") 
     getData(web3s)
   })
   
- const getRangeSchedule = schedule.scheduleJob("* * * * *", async () => { 
+ const getRangeSchedule = schedule.scheduleJob("*/5 * * * *", async () => { 
     console.log("About to run getDataRanges to get token price data from CoinGecko")
     getDataRanges()
   })
