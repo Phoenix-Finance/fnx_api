@@ -4,7 +4,8 @@ const MongoClient = require('mongodb').MongoClient;
 
 const initializeClient = () => {
     try {
-        const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@fnx-api.9fp5u.azure.mongodb.net/cache?retryWrites=true&w=majority`;
+        const uri = `mongodb+srv://Finnexus:Finnexus123456@finnexus.ahrd3.mongodb.net/cache?retryWrites=true&w=majority`
+//        const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@fnx-api.9fp5u.azure.mongodb.net/cache?retryWrites=true&w=majority`;
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
         client.connect();
         const getClient = () => client

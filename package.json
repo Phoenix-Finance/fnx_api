@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/noahniuwa/fnx-api#readme",
   "dependencies": {
+    "@makerdao/multicall": "^0.12.0",
     "body-parser": "^1.19.0",
     "coingecko-api": "^1.0.10",
     "cors": "^2.8.5",

@@ -1,8 +1,66 @@
 const express = require('express')
 const app = express.Router()
- 
+let itemInfo = {
+  fpoTvl: {dapp: "FPO", chain: "ALL", units: "USD", name: "TVL", description: "Total value of assets locked in FPO"}, 
+  fpoTvlEth: {dapp: "FPO", chain: "ETH", units: "USD", name: "Ethereum TVL", description: "Total value of assets locked in FPO on Ethereum"}, 
+  fpoTvlBsc: {dapp: "FPO", chain: "BSC", units: "USD", name: "BSC TVL", description: "Total value of assets locked in FPO on BSC"}, 
+  fpoTvlWan: {dapp: "FPO", chain: "WAN", units: "USD", name: "Wanchain TVL", description: "Total value of assets locked in FPO on Wanchain"}, 
+  wan_wanPoolTotalValue: {dapp: "FPO", chain: "WAN", units: "USD", name: "WAN TVL @WAN", description: "Total value of WAN in WAN/FNX FPO pool on Wanchain"}, 
+  wan_fnxPoolTotalValue:  {dapp: "FPO", chain: "WAN", units: "USD", name: "FNX TVL @WAN", description: "Total value of FNX in WAN/FNX FPO pool on Wanchain"}, 
+  wan_usdtPoolTotalValue: {dapp: "FPO", chain: "WAN", units: "USD", name: "USDT TVL @WAN", description: "Total value of USDT in USDT FPO pool on Wanchain"}, 
+  eth_fnxPoolTotalValue: {dapp: "FPO", chain: "ETH", units: "USD", name: "FNX TVL @ETH", description: "Total value of FNX in FNX FPO pool on Ethereum"}, 
+  eth_usdcPoolTotalValue: {dapp: "FPO", chain: "ETH", units: "USD", name: "USDC TVL @ETH", description: "Total value of USDC in USDC/USDT FPO pool on Ethereum"}, 
+  eth_usdtPoolTotalValue: {dapp: "FPO", chain: "ETH", units: "USD", name: "USDT TVL @ETH", description: "Total value of USDT in USDC/USDT FPO pool on Ethereum"}, 
+  eth_fraxPoolTotalValue: {dapp: "FPO", chain: "ETH", units: "USD", name: "FRAX TVL @ETH", description: "Total value of FRAX in FRAX FPO pool on Ethereum"}, 
+  bsc_fnxPoolTotalValue: {dapp: "FPO", chain: "BSC", units: "USD", name: "FNX TVL @BSC", description: "Total value of FNX in FNX FPO pool on BSC"}, 
+  bsc_busdtPoolTotalValue: {dapp: "FPO", chain: "BSC", units: "USD", name: "BUSDT TVL @BSC", description: "Total value of BUSDT in BUSDT/BUSD FPO pool on BSC"}, 
+  bsc_busdPoolTotalValue: {dapp: "FPO", chain: "BSC", units: "USD", name: "BUSD TVL @BSC", description: "Total value of BUSD in BUSDT/BUSD FPO pool on BSC"}, 
+  wan_wanPoolTotal: {dapp: "FPO", chain: "WAN", units: "WAN", name: "WAN Pool @WAN", description: "Total amount of WAN in WAN/FNX FPO pool on Wanchain"}, 
+  wan_fnxPoolTotal:  {dapp: "FPO", chain: "WAN", units: "FNX",name: "FNX Pool @WAN", description: "Total amount of FNX in WAN/FNX FPO pool on Wanchain"}, 
+  wan_usdtPoolTotal:  {dapp: "FPO", chain: "WAN", units: "USDT",name: "USDT Pool @WAN", description: "Total amount of USDT in USDT FPO pool on Wanchain"}, 
+  eth_fnxPoolTotal: {dapp: "FPO", chain: "ETH", units: "FNX", name: "FNX Pool @ETH", description: "Total amount of FNX in FNX FPO pool on Ethereum"}, 
+  eth_usdcPoolTotal: {dapp: "FPO", chain: "ETH", units: "USDC", name: "USDC Pool @ETH", description: "Total amount of USDC in USDC/USDT FPO pool on Ethereum"}, 
+  eth_usdtPoolTotal: {dapp: "FPO", chain: "ETH", units: "USDT", name: "USDT Pool @ETH", description: "Total amount of USDT in USDC/USDT FPO pool on Ethereum"}, 
+  eth_fraxPoolTotal: {dapp: "FPO", chain: "ETH", units: "FRAX", name: "FRAX Pool @ETH", description: "Total amount of FRAX in FRAX FPO pool on Ethereum"}, 
+  bsc_fnxPoolTotal: {dapp: "FPO", chain: "BSC", units: "FNX", name: "FNX TVL @BSC", description: "Total amount of FNX in FNX FPO pool on BSC"}, 
+  bsc_busdtPoolTotal: {dapp: "FPO", chain: "BSC", units: "BUSDT", name: "BUSDT TVL @BSC", description: "Total amount of BUSDT in BUSDT/BUSD FPO pool on BSC"}, 
+  bsc_busdPoolTotal: {dapp: "FPO", chain: "BSC", units: "BUSD", name: "BUSD TVL @BSC", description: "Total amount of BUSD in BUSDT/BUSD FPO pool on BSC"}, 
+  
+  ethCurrentTotalSupply: {units: "FNX", chain: "ETH", name: "Total Supply @ETH", description: "Current total supply of FNX on Ethereum"}, 
+  bscCurrentTotalSupply: {units: "FNX", chain: "BSC", name: "Total Supply @BSC", description: "Current total supply of FNX on BSC"}, 
+  wanCurrentTotalSupply: {units: "FNX", chain: "WAN", name: "Total Supply @WAN", description: "Current total supply of FNX on Wanchain"}, 
+  maxAmount: {dapp: "N/A", chain: "ALL", name: "Max Supply", description: "Max potential supply of FNX"}, 
+//    minted: {dapp: "N/A", chain: "ALL", name: "Minted", description: "Total number of minted FNX"},  
+  currentTotalSupply: {units: "FNX", chain: "ALL", name: "Total Supply", description: "Current total supply of FNX (minted FNX minus burnt FNX)"}, 
+  opReserves: {units: "FNX", chain: "ALL", name: "Operations Reserve", description: "FNX reserved for operational costs"}, 
+  teamAndFounders: {units: "FNX", chain: "ALL", name: "Team Reserve", description: "FNX reserved for team and founding investors"},
+  communityRewards: {units: "FNX", chain: "ALL", name: "Community Rewards", description: "Community rewards fund (for liquidity mining and DAO)"},
+  institutional1: {units: "FNX", chain: "ALL", name: "Institutional R1 Reserve", description: "FNX reserved for institutional investors R1"},
+  institutional2: {units: "FNX", chain: "ALL", name: "Institutional R2 Reserve", description: "FNX reserved for institutional investors R2"},
+  InsuranceReserve: {units: "FNX", chain: "ALL", name: "Insurance Reserve", description: "FNX reserved for Insurance"},
+  burned: {units: "FNX", chain: "ALL", name: "Burnt", description: "Total amount of burnt FNX"},
+  fnxCirculatingSupply: {units: "FNX", chain: "ALL", name: "Circulating", description: "Total amount of FNX in circulation (minted FNX minus reserved & burnt FNX)"},
+  effectiveCirculatingSupply: {units: "FNX", chain: "ALL", name: "Effective Circulating", description: "Effective circulating supply of FNX (circulating FNX minus locked FNX)"},
+  stakingRate: {units:"%",name:"Staking Rate",chain: "ALL",description:"The percentage of circulating FNX which is locked in FPO"} 
+}
+app.get("*", (req, res) => {
+  if (req.url.length == 1){
+    res.json(req.chainData)
+  }else{
+    let key = req.url.slice(1);
+    if(key == "fnxCirculatingSupply" || key == "fnx-in-circulation" || key == "fnx-circulating-supply"){
+      res.json(req.chainData.fnxCirculatingSupply)
+    }else{
+      res.json(req.chainData[key])
+    }
+  }
 
+})
+/*
 app.get("/fpoTvl", (req, res) => {
+  var url = req.url;
+  console.log(url);
+  //res.json(url, name)
   res.json(req.chainData.fpoTvl)
 })
 app.get("/fpoTvlEth", (req, res) => {
@@ -10,6 +68,9 @@ app.get("/fpoTvlEth", (req, res) => {
 })
 app.get("/fpoTvlWan", (req, res) => {
   res.json(req.chainData.fpoTvlWan)
+})
+app.get("/fpoTvlBsc", (req, res) => {
+  res.json(req.chainData.fpoTvlBsc)
 })
 app.get("/wan_wanPoolTotalValue", (req, res) => {
   res.json(req.chainData.wan_wanPoolTotalValue)
@@ -144,5 +205,5 @@ app.get("/fnxCirculatingSupplyEth", (req, res) => {
 app.get("/fnxCirculatingSupplyWan", (req, res) => {
   res.json(req.chainData.fnxCirculatingSupplyWan)
 })
-
+*/
 module.exports = app
