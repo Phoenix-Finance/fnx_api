@@ -236,7 +236,7 @@ module.exports = async function getTvl(){
     itemInfo.fnxCirculatingSupplyWan = itemInfo.wanCurrentTotalSupply.value;
     itemInfo.fnxCirculatingSupplyBsc = itemInfo.bscCurrentTotalSupply.value;
     itemInfo.fnxCirculatingSupplyEth = itemInfo.fnxCirculatingSupplyRawDecimals-itemInfo.fnxCirculatingSupplyWan-itemInfo.fnxCirculatingSupplyBsc;
-    itemInfo.timeStamp = Math.floor(Date.now()/1000);
+    itemInfo.timeStamp = Date.now();
     itemInfo.fnxPrice = Number(ethRet.transformed.FNXprice)/1e8;
     return itemInfo;
   }
