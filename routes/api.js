@@ -48,6 +48,9 @@ app.get("*", (req, res) => {
     res.json(req.chainData)
   }else{
     let key = req.url.slice(1);
+    if(key == "ranges"){
+      res.json(req.ranges)
+    }
     if(key == "fnxCirculatingSupply" || key == "fnx-in-circulation" || key == "fnx-circulating-supply"){
       res.json(req.chainData.fnxCirculatingSupply)
     }else{
