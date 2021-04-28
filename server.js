@@ -1,3 +1,7 @@
+process.on('SIGINT', function () {
+  console.log('Exit now!');
+  process.exit();
+});
 require("dotenv").config()
 const express = require('express')
 const rateLimit = require("express-rate-limit");

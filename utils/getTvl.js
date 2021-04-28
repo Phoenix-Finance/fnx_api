@@ -169,6 +169,7 @@ const eth_fnx = {
     let bscLocked = bscRet.BSCfnxPoolFNX_TotalValue.plus(bscRet.BSCconvert).dividedBy(ether);
     itemInfo.effectiveCirculatingSupply.value = itemInfo.fnxCirculatingSupply.value.minus(wanLocked).minus(ethLocked).minus(bscLocked)
     itemInfo.stakingRate.value = itemInfo.effectiveCirculatingSupply.value.multipliedBy(100).dividedBy(itemInfo.fnxCirculatingSupply.value);
+    itemInfo.stakingRate.value = (new BigNumber(100)).minus(itemInfo.stakingRate.value);
   }
   function calWanTotalValue(wanRet,ethRet,bscRet){
     itemInfo.wan_wanPoolTotal.value = wanRet.WANfnxPoolWAN_TotalValue.dividedBy(ether);
